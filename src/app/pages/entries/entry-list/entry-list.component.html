@@ -1,0 +1,39 @@
+<app-bread-crumb
+[items]="[{text: 'Lançamentos'}]"
+></app-bread-crumb>
+
+<app-page-header page-title="Lançamentos" button-class="btn-success" button-link="new" button-text="+ Novo Lançamento">
+</app-page-header>
+<table class="table table-hover">
+  <thead>
+    <tr class="bg-primary text-light">
+      <th>Lançamento</th>
+      <th>Categoria</th>
+      <th class="text-right">Valor R$</th>
+      <th class="text-center">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let resource of resources">
+      <td>
+        <strong>{{resource.name}}</strong><br>
+        <small class="text-success">{{resource.date}}</small><br>
+        <small *ngIf="resource.description">{{resource.description}}</small>
+      </td>
+      <td>
+        {{resource.category.name}}
+      </td>
+      <td class="text-right">
+        <strong [class.text-success]="resource.type == 'revenue'" [class.text-danger]="resource.type == 'expense'" >
+          {{resource.amount}}
+        </strong>
+        <br>
+        <span class="badge badge-light">{{resource.paidText}}</span>
+      </td>
+      <td class="text-center">
+        <a [routerLink]="[resource.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</a>
+        <button (click)="deleteEntry(resource)" class="btn btn-outline-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
